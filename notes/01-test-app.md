@@ -119,3 +119,19 @@ If this works, it should run the CI pipeline on push to GitHub.
 Hmm. Now he's talking about a new branch, which I may have missed??? I'll create a branch and see what happens when I push it.
 
 **COMMIT: 1.0.3 - CI: create a branch to test CI and push it**
+
+Okay, now I see the branch on the Pull requests tab. So, Compare & pull request it.
+
+AH! Now he notes he should have put the workflow in the root, not in `test-app`. Let's move it and try again.
+
+- Merge the branch in GitHub
+  - create PR
+  - see prompt to set up CI, which is what signaled CI was in the wrong place
+  - merge it
+- On local, get changes
+  - switch to `main` branch
+  - pull from the origin to sync it
+
+Now commit to move CI to the correct location and commit.
+
+**COMMIT: 1.0.4 - CI: move ci file to the correct location**
