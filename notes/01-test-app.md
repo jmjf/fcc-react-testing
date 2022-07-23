@@ -135,3 +135,7 @@ AH! Now he notes he should have put the workflow in the root, not in `test-app`.
 Now commit to move CI to the correct location and commit.
 
 **COMMIT: 1.0.4 - CI: move ci file to the correct location**
+
+Tried to branch and commit again, but forgot to switch to branch (derp). Revert commit that only changed docs, which will probably cause all kinds of issues because I pushed it to GitHub on main. Then switch to the branch and try again.
+
+**COMMIT: 1.0.5 - CI: try branch and commit again**
