@@ -136,4 +136,14 @@ Now commit to move CI to the correct location and commit.
 
 **COMMIT: 1.0.4 - CI: move ci file to the correct location**
 
+Tried to branch and commit again, but forgot to switch to branch (derp). Revert commit that only changed docs, which will probably cause all kinds of issues because I pushed it to GitHub on main. Then switch to the branch and try again.
+
 **COMMIT: 1.0.5 - CI: try branch and commit again**
+
+Now the branch appears in GitHub Pull requests and, after resolving the merge conflicts, it looks like the CI actions is running.
+
+And it fails. But so does his. Because it can't find `package-lock.json` (same for both of us, so at least I'm on the right track)
+
+In `test-app`, need to run `npm install` to create `package-lock.json` -- he says, but I see it's already there. Ah, but maybe it's complaining about my base directory, which doesn't have one. Let's try that.
+
+**COMMIT: 1.0.6 - CI: fix package-lock.json issue hopefully**
