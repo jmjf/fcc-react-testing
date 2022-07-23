@@ -115,3 +115,7 @@ jobs:
 If this works, it should run the CI pipeline on push to GitHub.
 
 **COMMIT: 1.0.2 - CI: add GitHub action to run tests**
+
+Hmm. Now he's talking about a new branch, which I may have missed??? I'll create a branch and see what happens when I push it.
+
+**COMMIT: 1.0.3 - CI: create a branch to test CI and push it**
