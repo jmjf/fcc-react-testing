@@ -147,3 +147,51 @@ And it fails. But so does his. Because it can't find `package-lock.json` (same f
 In `test-app`, need to run `npm install` to create `package-lock.json` -- he says, but I see it's already there. Ah, but maybe it's complaining about my base directory, which doesn't have one. Let's try that.
 
 **COMMIT: 1.0.6 - CI: fix package-lock.json issue hopefully**
+
+And it flows to the same PR because it's in the same branch. And it looks like the CI action is running now.
+
+So, different error, but same basic issue.
+
+And CI is working. YAY!
+
+Now, let's merge the PR and get in sync with GitHub.
+
+That worked too.
+
+We're done testing CI (lol), so let's move on to testing the application.
+
+## The plan
+
+| Expected Behavior                       | Tested? | Test Type | Technologies                |
+| --------------------------------------- | ------- | --------- | --------------------------- |
+| URL with right text exists              | [x]     | Component | React Testing Library, Jest |
+| App renders correctly                   | []      | tbd       | tbd                         |
+| URL is correct                          | []      | tbd       | tbd                         |
+| App looks as expected (desktop, mobile) | []      | tbd       | tbd                         |
+| Front-end performance is at least a B   | []      | tbd       | tbd                         |
+| App is secure                           | []      | tbd       | tbd                         |
+| App is accessible                       | []      | tbd       | tbd                         |
+
+## Test: URL is correct
+
+Ensure tests are running
+
+Add a test.
+
+```typescript
+test("url is correct", () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i) as HTMLAnchorElement;
+  expect(linkElement.href).toContain("ultimateqa.com");
+});
+```
+
+RTL has a number of `HTML*Element` types. You need the right one to get the expected properties.
+
+Test fails (as expected). So, let's change the URL in the app. And now it passes.
+
+And, we need to change the link text, which breaks the tests (can't find text). Getting elements by text values is probably not the best way to get the element.
+
+Now he says that too and uses a `data-testid` attribute. So now the tests need to `getByTestId('learn-link')` instead of `getByText()`.
+
+**COMMIT: 1.0.7 - TEST: add test for URL correctness; change URL text and how we find the element in the test**
