@@ -1,0 +1,19 @@
+{
+  "name": "fcc-react-testing",
+  "version": "1.0.0",
+  "description": "Work for FreeCodeCamp React testing course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmjf/fcc-react-testing.git"
+  },
+  "author": "jmjf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmjf/fcc-react-testing/issues"
+  },
+  "homepage": "https://github.com/jmjf/fcc-react-testing#readme"
+}
