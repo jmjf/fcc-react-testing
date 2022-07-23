@@ -27,3 +27,91 @@ CRA creates a basic test in `App.test.tsx`
 - Note it's using `@testing-libraru/react`, which adds assertions for jest like `toBeInTheDocument()`
 
 **COMMIT: 1.0.1 - CHORE: setup application, ensure it runs, ensure test runs**
+
+## CI pipeline
+
+He's using GitHub actions, so start in the GitHub repo
+
+- Actions tab
+- Search for Node.js workflow (build and test a Node.js project with npm)
+- Configure it to see the UI on GitHub
+
+He doesn't seem to save this, but writes his own. I'm going to modify in place and save.
+
+- `env` defines environment variable values to use
+  - If values are secrets, add in GitHub Settings, Secrets, Create repository secrets
+  - I set up the three secrets with initial value `tbd` because I don't know what these are yet
+- `on` defines when to run actions
+  - Perform actions for pushes and pull requests to the main branch (no other branches)
+- `jobs` defines the jobs to execute
+  - We're defining a job called `build`
+  - `runs-on` OS to use (`ubuntu-latest` in this case)
+  - `strategy` defines build tool version(s) to use (node 16.x for me)
+  - `steps` defines what the job does
+    - checkout the code
+    - pick a node version from `strategy`
+    - setup node for that version
+    - install dependencies
+    - he breaks down the default steps with descriptive names to make it easier to follow
+    - `npm ci` is similar to `npm install` but caches dependencies so run faster
+    - runs tests
+    - ends by running the application for 60 seconds
+
+**BUT DON'T SAVE FROM GITHUB**
+Instead, create `test-app/.github/workflows/test-app-ci.yml` and save it there (I think)
+
+```yml
+# test-app-ci.yml
+# Workflow for test-app based on Node.js workflow
+
+name: test-app ci
+
+env:
+  SCREENER_API_KEY: ${{ secrets.SCREENER_API_KEY }}
+  SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+  SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          cd test-app
+          npm ci
+      - name: Build the app (production version)
+        run: |
+          cd test-app
+          npm run build
+      - name: Run component tests
+        run: |
+          cd test-app
+          npm run test
+      - name: Start the app
+        run: |
+          cd test-app
+          npm start &
+          npx wait-on --timeout 60000
+```
+
+If this works, it should run the CI pipeline on push to GitHub.
+
+**COMMIT: 1.0.2 - CI: add GitHub action to run tests**
